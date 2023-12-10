@@ -1,6 +1,74 @@
 'use strict'; 
 (function() {
 
+//Chapter 6 - Using Built-in JS Objects - START
+
+    //Searching Strings with the RegExp.exec() Function
+    function findAlerts(logData) {
+        let regex = /ERROR(.*?):(.*?);/g;
+        
+        let result = regex.exec(logData);
+        while(result !== null) {
+          display(result[1]);
+          display(result[2]);
+          display('---------------------------');
+          result = regex.exec(logData);    
+        }
+      }
+       
+      let logData = 'INFO:Ok;ERROR(HIGH):Something broke;ERROR(LOW):Something fishy;ERROR(HIGH):So many errors;';
+       
+      findAlerts(logData);
+
+    //Validating Strings with the RegExp.test() Function
+    /*function checkPasswordComplexity(password){
+        //let regex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$', 'gi');
+        let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/gi;
+
+        return regex.test(password);
+    }
+
+    display(checkPasswordComplexity('wek'));
+    display(checkPasswordComplexity('Stronger1'));*/
+
+    //Managing Dates with the Date Object
+    //Ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/UTC
+    /*let date = new Date(2050, 3, 25, 13, 1, 30, 50);
+    date.setMonth(6);
+
+    display(date.toString());
+
+    display(date.getFullYear());
+    display(date.getMonth()); //Zero-Based
+    display(date.getDate());
+    display(date.getHours());
+    display(date.getMinutes());
+    display(date.getSeconds());
+    display(date.getMilliseconds());
+
+    display(date.getUTCFullYear());
+    display(date.getUTCMonth()); //Zero-Based
+    display(date.getUTCDate());
+    display(date.getUTCHours());
+    display(date.getUTCMinutes());
+    display(date.getUTCSeconds());
+    display(date.getUTCMilliseconds());
+
+    let date1 = new Date(2050, 3, 25, 13, 1, 30, 50);
+    let date2 = new Date(2050, 3, 25, 13, 1, 30, 58);
+    display(date2-date1);*/
+
+    // let date = new Date(1000);
+    //display(date.toString());
+
+    //Using the JS Math Object
+    //Ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
+    // display(Math.PI);
+    // display(Math.max(2, 34,89, 32));
+    // display(Math.round(23.43));
+
+//Chapter 6 - Using Built-in JS Objects - END
+
 //Chapter 5 - JS Classes - START
 
     //Using Static Properties and Methods
@@ -8,7 +76,7 @@
     //Modifying Property Descriptors on Classes
     //Creating Getters and Setters with Classes
     //Adding Functions to Classes
-    class Person{
+    /*class Person{
         constructor(firstName, lastName, age){
             this.firstName = firstName;
             this.lastName = lastName;
@@ -72,7 +140,7 @@
     // let jim = new Person('Jim', 'Cooper', 29);
     // display(jim);
     let jimStudent = Student.fromPerson(jim);
-    display(jimStudent);
+    display(jimStudent);*/
 
     //Creating Objects with Classes
     /*class Person{
