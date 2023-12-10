@@ -1,10 +1,139 @@
 'use strict'; 
 (function() {
 
+//Chapter 4 - JS Prototypes and Interfaces - START
+
+    //Creating your Own Prototypal Inheritance Chains
+    function Person(firstName, lastName, age){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        Object.defineProperty(this, 'fullName', {
+            get: function(){
+                return this.firstName + ' ' + this.lastName;
+            },
+            enumerable: true
+        });
+    }
+
+    function Student(firstName, lastName, age){
+        Person.call(this, firstName, lastName, age);
+        this._enrolledCourses = [];
+
+        this.enroll = function(courseId){
+            this._enrolledCourses.push(courseId);
+        };
+
+        this.getCourses = function(){
+            return this.fullName + "'s enrolled courses are: " +
+            this._enrolledCourses.join(', ');
+        };
+    }
+    //display(Student.prototype.constructor);
+    Student.prototype = Object.create(Person.prototype);
+    //display(Student.prototype.constructor);
+    Student.prototype.constructor = Student;
+    //display(Student.prototype.constructor);
+
+    let jim = new Student('Jim', 'Cooper', 29);
+
+    jim.enroll('CS020');
+    jim.enroll('MA121');
+
+    display(jim);
+    // display(jim.__proto__);
+    // display(jim.__proto__.__proto__);
+    display(jim.getCourses());
+
+    //Multiple levels of Inheritance
+    /*function Person(firstName, lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    Person.prototype.age = 4;
+
+    let jim = new Person('Jim', 'Cooper');
+
+    display(jim.__proto__);
+    display(jim.__proto__.__proto__);
+    display(jim.__proto__.__proto__.__proto__);*/
+
+    //Changing a Functions Prototype
+    /*function Person(firstName, lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    Person.prototype.age = 29;
+
+    var jim = new Person('Jim', 'Cooper');
+    var sofia = new Person('Sofia', 'Cooper');
+
+    Person.prototype = { age: 18 };
+
+    let kris = new Person('Kris', 'Cooper');
+
+    display(Person.prototype);
+    display(jim.age);
+    display(sofia.age);
+    display(kris.age);*/
+
+    //Instance vs Prototype Properties
+    /*function Person(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    Person.prototype.age = 29;
+
+    let jim = new Person('Jim', 'Cooper');
+    let sofia = new Person('Sofia', 'Cooper');
+
+    //jim.age = 11;
+
+    // display(jim.age);
+    // display(jim.__proto__.age);
+    //display(sofia.age);
+    jim.age = 22;
+    display(jim.hasOwnProperty('age'));
+    display(jim.age);*/
+
+    //What is a Prototype?
+    /*let myFunction = function() {}
+    //Definition: A Funtions prototype is the object instance that will become 
+    //the prototype for all objects created using this function as a constructor.
+    display(myFunction.prototype);
+
+    let person = {firstName: 'Jim'};
+    //Defn: An objects prototype is the object instance from which the object 
+    //is inherited.
+    display(person.prototype);
+    display(person.__proto__);*/
+
+    /*function Person(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    Person.prototype.age = 29;
+
+    display(Person.prototype);
+    //A Funtions prototype is the object instance that will become the prototype for all objects created using this function as a constructor.
+    let jim = new Person('Jim', 'Cooper');
+    let sofia = new Person('Sofia', 'Cooper');
+    sofia.__proto__.age = 19;
+
+    display(jim.__proto__);
+    display(sofia.__proto__);
+
+    display(Person.prototype === jim.__proto__);*/
+
+
+//Chapter 4 - JS Prototypes and Interfaces - END
+
 //Chapter 3 - START
 
     //Creating Property Getters & Setters
-    let person = {
+    /*let person = {
         name: {
             firstName: 'Jim',
             lastName: 'Cooper'
@@ -28,7 +157,7 @@
     person.fullName = 'Fred Jones';
     display(person.fullName);
     display(person.name.firstName);
-    display(person.name.lastName);
+    display(person.name.lastName);*/
 
     //Modifiying Properties with Property Descriptors
     /*let person = {
